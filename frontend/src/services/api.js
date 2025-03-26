@@ -11,4 +11,4 @@ if (token) {
 }
 return config ;
 });
-export
+export default
