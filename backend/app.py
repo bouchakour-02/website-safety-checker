@@ -1,26 +1,24 @@
+# app.py
 from flask import Flask
 from flask_cors import CORS
-from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
 from config import Config
-from routes import main_bp
-db = SQLAlchemy()
+from extensions import db
 
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
-    
+
     # Initialize extensions
     db.init_app(app)
-    CORS(app)  # allow cross-origin requests; configure origins in production
+    CORS(app)
     JWTManager(app)
-    
-    # Register blueprints
-    from routes import main_bp
-    app.register_blueprint(main_bp)
-    
+
+    # Register blueprints after initializing the app context
     with app.app_context():
-        db.create_all()  # Create database tables for our models
+        from routes import main_bp  # Import here to avoid circular imports
+        app.register_blueprint(main_bp)
+        db.create_all()  # Create tables if they don't exist
 
     return app
 
