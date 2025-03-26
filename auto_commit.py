@@ -19,7 +19,7 @@ class GitAutoCommitHandler(FileSystemEventHandler):
             print("No changes to commit.")
 
     def on_modified(self, event):
-        self.commit_changes()sqsqs
+        self.commit_changes()
 
     def on_created(self, event):
         self.commit_changes()
