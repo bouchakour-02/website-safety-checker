@@ -1,5 +1,5 @@
 import axios from 'axios' ; 
 
 const api = axios.create({
-    baseURL: process.env ||'https://localhost:5000',
+    baseURL: process.env.REACT ||'https://localhost:5000',
 })
