@@ -5,5 +5,5 @@ const api = axios.create({
 });
 
 api.interceptors.request.use((config)=>
-const token 
+const token = 
 )
