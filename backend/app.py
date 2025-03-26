@@ -1,4 +1,3 @@
-# app.py
 from flask import Flask
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
@@ -9,16 +8,16 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
 
-    # Initialize extensions
+    # Allow CORS for all routes, specifying the origin for security.
+    CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}}, supports_credentials=True)
+    
     db.init_app(app)
-    CORS(app)
     JWTManager(app)
 
-    # Register blueprints after initializing the app context
     with app.app_context():
-        from routes import main_bp  # Import here to avoid circular imports
+        from routes import main_bp
         app.register_blueprint(main_bp)
-        db.create_all()  # Create tables if they don't exist
+        db.create_all()
 
     return app
 
