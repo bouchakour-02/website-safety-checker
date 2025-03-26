@@ -68,7 +68,7 @@ def scan_url():
         response = requests.post(vt_url, headers=headers, data={"url": url})
         result = response.json()
     except Exception as e:
-        result = {"error": "Failed to fetch data from external API", "details": str(e)}
+        result = {"error": "Failed to fetch data from external API", "detailsz": str(e)}
     
     # Optionally, save scan results in the database for the logged in user
     user_id = get_jwt_identity()
